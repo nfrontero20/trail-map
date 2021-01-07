@@ -1,8 +1,8 @@
 # Trails Near Amherst College
 
-This is my final project for STAT-495, the capstone statistics major course at Amherst College.  This project also doubles as my comprehensive project that is required for completion of the statistics major. 
+For my capstone statistics project as a Statistics major at Amherst College, I taught myself how to work with geospatial data and ultimately created an interactive map of the trails near Amherst College.  
 
-The main deliverables from this project are:
+The major deliverables from this project were:
 
 1) A **Shiny app** that contains a Leaflet map of the trails surrounding Amherst College (accessible at https://nfrontero20.shinyapps.io/leaflet/)
 2) A **report** that accompanies the app (which can be found [here](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/report/report.pdf))
