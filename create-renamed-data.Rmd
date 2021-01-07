@@ -1,0 +1,136 @@
+---
+title: "Creating renamed copies of raw data"
+author: "Nicole Frontero"
+date: "December 10, 2020"
+output: 
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+library(shinybusy)
+library(shiny)
+library(tidyverse)  
+library(mdsr)
+library(mosaic)
+library(rgdal)
+library(sf)
+library(ggspatial)
+library(ggplot2)
+library(knitr)
+library(leaflet)
+
+knitr::opts_chunk$set(
+  tidy=FALSE,     
+  size="small",
+  message=FALSE,
+  comment=NA,
+  warning=FALSE)  
+```
+
+# Introduction
+
+The purpose of this file is to provide code for copying the raw data files and saving them in the "data" folder with new names.
+
+Data used in this project were obtained from the following resources:
+
+* Amherst College trails
+    - Obtained through [Amherst College IT Department](https://www.amherst.edu/offices/it).  They can be contacted at [AskIT@amherst.edu](AskIT@amherst.edu).
+ 
+* Bicycle trails
+    - Obtained through [MassGIS (Massachusetts Bureau of Geographic Information)](https://docs.digital.mass.gov/massgis).  The specific layer utilized is the [Bicycle Trails](https://docs.digital.mass.gov/dataset/massgis-data-bicycle-trails) layer.
+    
+* Elevation contours
+    - Obtained through the [Amherst, MA town government website web-page dedicated to GIS data and maps of the town](https://www.amherstma.gov/400/Amherst-Maps-Property-Info).  The data was downloaded using the Amherst, MA town government [app to extract topographic data](http://gis.amherstma.gov/apps/topoextract.htm) by selecting the "Elevation Contours" check box and downloading shapefiles. 
+    
+For each layer, the four file types required in order to read the layer into R are: .dbf, .shp, .shx, and .prj.  Technically, you can read in only the .dbf, .shp, .shx files, and not the .prj file.  However, the .prj file has information on the coordinate reference system that the original data was produced with, so if you did not include the .prj file when reading in the layer, you would then need to set the coordinate reference system yourself through using `st_set_crs`.
+
+When reading in a layer, the layer name is simply the name of the files (excluding the extension) that create that layer.  For example, the raw data files for the Amherst College trails are all called "Wildlife_Sanctuary_Trails" with different extensions.  As a result, when we read in the layer from these files, the layer name is `Wildlife_Sanctuary_Trails`.  In this document, the raw data files are copied and saved with new names in the "data" folder.  By creating a copy of the raw files and naming these copied files "amherst-college-trails", when the layer is read in it is called `amherst-college-trails`.  We find the altered layer name to be more informative than its name as stated in the raw data.  See [save-rda.R](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/save-rda.Rmd) for the layer names. 
+
+    
+# Creating renamed copies of original data 
+
+We create copies of the files found in "data-raw" and place them in "data" with new names.  Note that if this document is run with all of the renamed files already existing in "data-raw," then attempts to run each of the lines of code in this document will be met with `FALSE` printed to the console.  However, this is not a problem at all, as it indicates that the data that is needed to run the app is already in the correct place. 
+    
+## Amherst College trails
+
+```{r}
+# dbf file 
+file.copy(from = "data-raw/Wildlife_Sanctuary_Trails.dbf", 
+          to = "data/amherst-college-trails.dbf",
+          overwrite = FALSE)
+
+# shp file
+file.copy(from = "data-raw/Wildlife_Sanctuary_Trails.shp", 
+          to = "data/amherst-college-trails.shp",
+          overwrite = FALSE)
+
+# shx file
+file.copy(from = "data-raw/Wildlife_Sanctuary_Trails.shx", 
+          to = "data/amherst-college-trails.shx",
+          overwrite = FALSE)
+
+# prj file
+file.copy(from = "data-raw/Wildlife_Sanctuary_Trails.prj", 
+          to = "data/amherst-college-trails.prj",
+          overwrite = FALSE)
+```
+
+## Bicycle trails
+
+```{r}
+# dbf file 
+file.copy(from = "data-raw/biketrails_arc.dbf", 
+          to = "data/bike-trails.dbf",
+          overwrite = FALSE)
+
+# shp file
+file.copy(from = "data-raw/biketrails_arc.shp", 
+          to = "data/bike-trails.shp",
+          overwrite = FALSE)
+
+# shx file
+file.copy(from = "data-raw/biketrails_arc.shx", 
+          to = "data/bike-trails.shx",
+          overwrite = FALSE)
+
+# prj file
+file.copy(from = "data-raw/biketrails_arc.prj", 
+          to = "data/bike-trails.prj",
+          overwrite = FALSE)
+
+
+```
+
+
+## Elevation contours
+
+```{r}
+# dbf file 
+file.copy(from = "data-raw/Elevation_Contours.dbf", 
+          to = "data/elevation-contours.dbf",
+          overwrite = FALSE)
+
+# shp file
+file.copy(from = "data-raw/Elevation_Contours.shp", 
+          to = "data/elevation-contours.shp",
+          overwrite = FALSE)
+
+# shx file
+file.copy(from = "data-raw/Elevation_Contours.shx", 
+          to = "data/elevation-contours.shx",
+          overwrite = FALSE)
+
+# prj file
+file.copy(from = "data-raw/Elevation_Contours.prj",
+          to = "data/elevation-contours.prj")
+```
+

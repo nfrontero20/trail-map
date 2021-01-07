@@ -1,0 +1,77 @@
+---
+title: "Shiny App Outline"
+author: "Nicole Frontero"
+output: 
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Big picture
+
+The Shiny app will allow for users to view trails surrounding Amherst College and associated information for those trails.
+
+# Row that will run along the top of all tabs: title and basic information
+
+I will have a title for the app and also some basic information (my name, getting started instructions) that will display at the top of the app regardless of what tab users are on.
+
+# First tab - the map and associated layers
+
+The first tab (which the app will automatically display upon first opening) will be the map.  
+
+The default map will have the following layers: 
+
+* Orthophotos/aerial photos of the area
+* Roads
+* Buildings (I might not end up including this in the default map)
+* Rivers and ponds
+* Trails (no names)
+
+Additional layers that users will be able to add include:
+
+* Trail names
+* Point of interest layer
+* Waypoints layer
+
+Also, users will be able to get specific information on trails.  This information includes: 
+
+* Trail distance
+* Trail elevation chart
+
+I am not sure if I want the distance and elevation charts to appear as a pop up when someone clicks on a trail.  Alternatively, I could have a box for filtering by trail, and users could toggle to the trail they want to see more information for (and maybe toggling could also increase the line thickness on that trail so it stands out more).
+
+Basic information that I will also feature on this tab includes: 
+
+* A compass
+* A distance reference to help users conceptualize scale
+* Other legend information (the trails are colored X color, the streams and ponds are blue, etc.)
+
+# Second tab - a table of the trail data
+
+I would like to have a tab that provides numerical data on the trails, including: 
+
+* A table that features...
+  + Trail lengths (that can be sorted ascendingly and descendingly)
+  + Trail difficulty (easy, medium hard)
+  + Some sort of statistic on elevation (change in elevation maybe?)
+  
+* Elevation chart (after user filters for a specific trail)
+  + It would be helpful to display the elevation chart for a given trail over most of the screen so that it's easier to view than it will be when it's featured in the first tab as a pop up.
+  
+# Third tab - about 
+
+I will write a little bit about the motivation for this app.
+
+# Fourth tab - references
+
+I will make sure I cite all sources used in creating the app.

@@ -1,0 +1,172 @@
+---
+title: "Creating objects from layer and saving to Rdata file"
+author: "Nicole Frontero"
+date: "December 10, 2020"
+output: 
+  pdf_document:
+    fig_height: 3
+    fig_width: 5
+  html_document:
+    fig_height: 3
+    fig_width: 5
+  word_document:
+    fig_height: 3
+    fig_width: 5
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+library(shinybusy)
+library(shiny)
+library(tidyverse)  
+library(mdsr)
+library(mosaic)
+library(rgdal)
+library(sf)
+library(ggspatial)
+library(ggplot2)
+library(knitr)
+library(leaflet)
+
+knitr::opts_chunk$set(
+  tidy=FALSE,     
+  size="small",
+  message=FALSE,
+  comment=NA,
+  warning=FALSE)  
+```
+
+# Introduction
+
+The purpose of this file is to create all objects that the app references.  The code at the end of this file creates an Rdata file that is saved to the ["shiny" folder](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/tree/main/shiny), giving the app access to all of the data that it needs in order to run. 
+
+# Check that data files exist
+
+The code in this document only runs if the renamed data files (created in [create-renamed-objects.rmd](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/create-renamed-data.Rmd)) exist within the ["data" folder](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/tree/main/data).  We can check if the needed data exists by using `file.exists()`. 
+
+```{r}
+file.exists("data/amherst-college-trails.dbf")
+file.exists("data/amherst-college-trails.prj")
+file.exists("data/amherst-college-trails.shp")
+file.exists("data/amherst-college-trails.shx")
+file.exists("data/bike-trails.dbf")
+file.exists("data/bike-trails.prj")
+file.exists("data/bike-trails.shp")
+file.exists("data/bike-trails.shx")
+file.exists("data/elevation-contours.dbf")
+file.exists("data/elevation-contours.prj")
+file.exists("data/elevation-contours.shp")
+file.exists("data/elevation-contours.shx")
+```
+
+
+# Identify layer types
+
+We will set the `dsn` and save the layers. 
+
+## Set the dsn 
+
+First, we have to set the `dsn` so that the computer knows where to look to find the data that contains the layers. 
+```{r}
+# Set the dsn to where the data is
+dsn <- "data" # Note that we are using a relative path here
+
+# List the files in the dsn
+list.files(dsn) 
+```
+
+When we list the files found in `dsn`, we are listing the files found in the [data folder](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/tree/main/data) since we set `dsn` to be `"data"`.  
+
+## Layer types
+
+The next step we will take is to use `sf::st_layers()` to be able to see the types of layers that we have.
+```{r}
+# Save layers from dsn
+layers <- st_layers(dsn) 
+
+# Print layers
+layers
+```
+
+We see that we have three layers in our files, which is unsurprising.  The `elevation-contours` layer has a geometry of type `3D Line String`, while the `amherst-college-trails` and the `bike-trails` layers are of geometry type `Line String`.
+
+# Create objects for each layer
+
+We can save each layer to an object.  These objects will be saved in an Rdata file and will be accessible to the app.
+
+## Amherst College trails
+
+```{r}
+# Read in layer
+amherst_college_trails <- st_read(dsn, layer = "amherst-college-trails")
+```
+
+## Bike trails 
+
+```{r}
+# Read in layer
+bike_trails <- st_read(dsn, layer = "bike-trails") 
+```
+
+
+## Elevation contours
+
+```{r}
+# Read in layer
+elevations_contour <- st_read(dsn, layer = "elevation-contours") 
+```
+
+# Trail lengths table
+
+In the app, there will be a tab that features a table with the lengths of each of the trails.  We will prepare a data frame for that tab here and we will save it to the Rdata file.  Note that the app will ultimately have access to all objects in the Rdata file.
+
+```{r}
+# Trail lengths in miles
+trail_lengths_miles <- amherst_college_trails %>% 
+  st_length %>% units::set_units("miles") %>% 
+  round(digits = 2)
+
+# Trail lengths in kilometers
+trail_lengths_kilometers <- amherst_college_trails %>% 
+  st_length %>% units::set_units("kilometers") %>% 
+  round(digits = 2) 
+```
+
+```{r}
+# Trail names
+trail_names <- amherst_college_trails$Trail
+
+# Bind miles and kilometers lengths together
+trail_lengths_df <- data.frame(cbind(trail_names, 
+                                     trail_lengths_miles,
+                                     trail_lengths_kilometers))
+
+# Set column names (for display in the app)
+colnames(trail_lengths_df) <- c("Trail name", 
+                                "Length in miles", 
+                                "Length in kilometers")
+```
+
+
+# Save the Rda
+
+Now that we have created all of the objects that the app requires to run, we will save them all to an Rdata file.  This Rdata file (which will have a file extension of .rda) will be loaded into [Global.R](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/shiny/Global.R).  [Global.R is a special file](https://mraess.rbind.io/2018/07/the-awesomeness-that-is-the-global-r-file-or-how-to-clean-up-your-shiny-app/).  Any R objects in Global.R will be accessible to the Shiny app.  Using a Global.R file will allow for the code in the app to be run once and stored so that we can avoid the problem of the app taking a long time to run.
+
+Note that neither the the `bike-trails` layer nor the `elevation-contours` layer are featured in the app.  However, in the event that future work with these data sets and with making maps of the Amherst area occurs, it may prove useful to have access to these layers.  For this reason, the `bike-trails` and `elevation-contours` layers are saved in the Rdata file.
+
+We will save the Rdata file to the ["shiny" folder](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/tree/main/shiny).
+```{r}
+# Save the Rdata file
+save(
+  # Amherst College trails layer
+  amherst_college_trails,
+  # Elevations contour layer
+  elevations_contour,
+  # Bike trails layer
+  bike_trails,
+  # Trail lengths dataframe
+  trail_lengths_df,
+  # File name and location
+  file = "shiny/app-objects.rda"
+  )
+```
