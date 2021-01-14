@@ -14,7 +14,7 @@ The major deliverables from this project were:
 2) A **report** that accompanies the app (which can be found [here](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/report/report.pdf))
 
 <p align="center">
-  <img src="README-images/trail-map-report-preview.png" width="320" height="400"/>
+  <img src="README-images/trail-map-report-preview.png" width="566" height="400"/>
 </p>
 
 3) An Rda (R data object) named [app-objects.rda](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/shiny/app-objects.rda) that contains four layers of geospatial data: `amherst_college_trails`, `bike_trails`, `elevation_contours`, and `trail_lengths`.  
