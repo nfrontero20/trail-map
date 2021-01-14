@@ -8,7 +8,7 @@ The major deliverables from this project were:
 
 <p float="left">
   <img src="README-images/trail-map-app-tab1-preview.png" width="600" height="400"/>
-  <img src="README-images/trail-map-app-tab2-preview.png" width="423" height="400 /> 
+  <img src="README-images/trail-map-app-tab2-preview.png" width="420" height="400 /> 
 </p>
 
 2) A **report** that accompanies the app (which can be found [here](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/report/report.pdf))
