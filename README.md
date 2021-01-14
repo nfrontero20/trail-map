@@ -5,12 +5,15 @@ For my capstone statistics project as a Statistics major at Amherst College, I t
 The major deliverables from this project were:
 
 1) A **Shiny app** that contains a Leaflet map of the trails surrounding Amherst College (accessible at https://nfrontero20.shinyapps.io/leaflet/)
-
-![](README-images/trail-map-app-preview.png)
+<p align="center">
+  <img src="README-images/trail-map-app-preview.png" width="400" height="300"/>
+</p>
 
 2) A **report** that accompanies the app (which can be found [here](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/report/report.pdf))
 
-![](README-images/trail-map-report-preview.png)
+<p align="center">
+  <img src="README-images/trail-map-report-preview.png" width="300" height="400"/>
+</p>
 
 ## Navigating the repository
 
