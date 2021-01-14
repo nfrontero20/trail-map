@@ -7,8 +7,8 @@ The major deliverables from this project were:
 1) A **Shiny app** that contains a Leaflet map of the trails surrounding Amherst College (accessible at https://nfrontero20.shinyapps.io/leaflet/)
 
 <p float="left">
-  <img src="README-images/trail-map-app-tab1-preview.png" width="600" height="400"/>
-  <img src="README-images/trail-map-app-tab2-preview.png" width="400" height="400 /> 
+  <img src="README-images/trail-map-app-tab1-preview.png" width="580" height="400"/>
+  <img src="README-images/trail-map-app-tab2-preview.png" width="390" height="400 /> 
 </p>
 
 2) A **report** that accompanies the app (which can be found [here](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/report/report.pdf))
