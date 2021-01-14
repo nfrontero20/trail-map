@@ -6,7 +6,7 @@ The major deliverables from this project were:
 
 1) A **Shiny app** that contains a Leaflet map of the trails surrounding Amherst College (accessible at https://nfrontero20.shinyapps.io/leaflet/)
 <p align="center">
-  <img src="README-images/trail-map-app-preview.png" width="400" height="300"/>
+  <img src="README-images/trail-map-app-tab1-preview.png" width="400" height="300"/>
 </p>
 
 2) A **report** that accompanies the app (which can be found [here](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/report/report.pdf))
@@ -14,6 +14,8 @@ The major deliverables from this project were:
 <p align="center">
   <img src="README-images/trail-map-report-preview.png" width="300" height="400"/>
 </p>
+
+3) An Rda (R data object) named [app-objects.rda](https://github.com/Amherst-STAT495F20/STAT495F20-project-Frontero/blob/main/shiny/app-objects.rda) that contains four layers of geospatial data: `amherst_college_trails`, `bike_trails`, `elevation_contours`, and `trail_lengths`.  
 
 ## Navigating the repository
 
